@@ -10,6 +10,7 @@ const { pool, initSchema } = require("./db");
 const authRoutes = require("./auth");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 10000;
 
 app.use(cors({ origin: true, credentials: true }));
