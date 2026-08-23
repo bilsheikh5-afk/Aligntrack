@@ -42,6 +42,14 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, geminiConfigured: !!GEMINI_API_KEY });
 });
 
+// ---------- TEMPORARY DEBUG ROUTE - remove after troubleshooting ----------
+app.get("/api/debug-status", async (req, res) => {
+  if (req.query.key !== "debug123") return res.status(403).json({ error: "wrong key" });
+  const codes = await pool.query("SELECT code, role, used_by, created_at FROM invite_codes");
+  const users = await pool.query("SELECT id, email, role, created_at FROM users");
+  res.json({ invite_codes: codes.rows, users: users.rows });
+});
+
 // ---------- Auth ----------
 app.post("/api/auth/register", authRoutes.register);
 app.post("/api/auth/login", authRoutes.login);
