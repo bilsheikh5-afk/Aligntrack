@@ -1,0 +1,29 @@
+databases:
+  - name: aligntrack-db
+    plan: free
+    databaseName: aligntrack
+    user: aligntrack
+
+services:
+  - type: web
+    name: aligntrack-ai
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: SEED_INVITE_CODE
+        value: WELCOME2026
+      - key: NODE_VERSION
+        value: 18.20.0
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: aligntrack-db
+          property: connectionString
