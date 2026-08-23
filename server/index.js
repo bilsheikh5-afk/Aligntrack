@@ -109,7 +109,7 @@ app.post("/api/cases/:id/ai-coaching-note", async (req, res) => {
   const c = rows[0];
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
     const prompt = `You are a clear-aligner compliance coach writing a short note for a dentist about their patient.
 Patient: ${c.patient}
 Case type: ${c.type}
